@@ -17,3 +17,8 @@ Route::get('/', 'App\Http\Controllers\MainController@index')->name('main');
 Route::get('/denah/{id}', 'App\Http\Controllers\MainController@view')->name('main.view');
 Route::get('/_attribute/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
 Route::post('/update/_attribute/', 'App\Http\Controllers\MainController@update')->name('main.update');
+
+
+Route::get('/auth', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
+Route::post('/login','App\Http\Controllers\LoginController@authenticate');
+Route::post('/logout','App\Http\Controllers\LoginController@logout');

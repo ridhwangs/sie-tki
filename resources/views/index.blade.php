@@ -64,11 +64,9 @@
           <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
+          <h4 class="text-white">Member Area</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
+            <li><a href="{{ route('login'); }}" class="text-white">Login</a></li>
           </ul>
         </div>
       </div>
@@ -88,7 +86,7 @@
 
 <main>
 
-  <section class="py-5 text-center container">
+  <!-- <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Album example</h1>
@@ -99,7 +97,7 @@
         </p>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <div class="album py-5 bg-light">
     <div class="container">
