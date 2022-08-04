@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\MainController@index')->name('main');
-Route::get('/denah/{id}', 'App\Http\Controllers\MainController@view')->name('main.view');
+Route::get('/siteplan/{id}', 'App\Http\Controllers\MainController@view')->name('main.view');
 Route::get('/_attribute/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
 Route::post('/update/_attribute/', 'App\Http\Controllers\MainController@update')->name('main.update');
 
 
-Route::get('/auth', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
-Route::post('/login','App\Http\Controllers\LoginController@authenticate');
+Route::get('/member/auth', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
+Route::post('/session','App\Http\Controllers\LoginController@authenticate')->name('login.session');
 Route::post('/logout','App\Http\Controllers\LoginController@logout');
+
+Route::get('/member/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
+Route::post('/register', 'App\Http\Controllers\RegisterController@store')->name('register.store');
+
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
