@@ -26,28 +26,15 @@ class MainController extends Controller
         return view('_attribute.index', $data);
     }
 
-    public function details($id)
-    {
-        $response = Attribute::where('id', $id)->first();
-        return response()->json($response, 200);
-    }
+    
 
     public function update(Request $request)
     {
-        if($request->status == 1){
-            $background_color = '#e74c3c';
-        }elseif($request->status == 2){
-            $background_color = '#f1c40f';
-        }else{
-            $background_color = '#0fabb8';
-        }
         $data = [
-            'status' => $request->status,
-            'marketing' => $request->marketing,
-            'keterangan' => $request->keterangan,
-            'background_color' => $background_color,
+            'name' => $request->name,
+            'information' => $request->information,
         ];
-        Attribute::where('id', $request->id)->update($data);
+        Main::where('id', $request->id)->update($data);
         return redirect()->back()->with('message', 'Berhasil di simpan!');
     }
 }

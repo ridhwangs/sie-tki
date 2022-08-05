@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Attribute;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('_member.dashboard.index');
+        $data = [
+            'attribute' => Attribute::where('status', 3)->get(),
+        ];
+        return view('_member.dashboard.index', $data);
     }
 }

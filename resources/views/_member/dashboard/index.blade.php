@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('_member.main')
 @section('title', 'Dashboard')
 
 @section('content')  
@@ -15,131 +15,63 @@
             </button>
         </div>
     </div>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>No Rumah</th>
+                            <th>Type Kavling</th>
+                            <th>Keterangan</th>
+                            <th>Status</th>
+                            <th>Marketing</th>
+                            <th>Kode VA</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Update At</th>
+                            <th widht="1%">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($attribute as $rows)
+                        @php 
+                            $status = [
+                                '0' => 'Tersedia',
+                                '1' => 'Terjual',
+                                '2' => 'Booked'
+                            ];
+                            $table_status = [
+                                '0' => '',
+                                '1' => 'table-success',
+                                '2' => 'table-warning'
+                            ];
+                            $home_icon = [
+                                '0' => '<i class="fa-solid fa-house-blank"></i>',
+                                '1' => '<i class="fa-solid fa-house-user"></i>',
+                                '2' => '<i class="fa-solid fa-house-lock"></i>'
+                            ];
+                        @endphp
+                            <tr class="{{ $table_status[$rows->status] }}">
+                                <td>{!! $home_icon[$rows->status] !!} {{ $rows->no }}</td>
+                                <td>{{ $rows->type_kavling }}</td>
+                                <td>{{ $rows->keterangan }}</td>
+                                <td>{{ $status[$rows->status] }}</td>
+                                <td>{{ $rows->marketing }}</td>
+                                <td>{{ $rows->kode_va }}</td>
+                                <td>{{ $rows->created_by }}</td>
+                                <td>{{ $rows->created_at }}</td>
+                                <td>{{ $rows->updated_at }}</td>
+                                <td>
+                                    @if($rows->status == 2)
+                                        <a class="btn btn-success" onclick="approved({{ $rows->id }})" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Approved</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @stop
