@@ -23,7 +23,7 @@ class MainController extends Controller
             'main' => Main::where('id', $id)->first(),
             'attribute' => Attribute::where('id_main', $id)->get(),
         ];
-        return view('_attribute.index', $data);
+        return view('_siteplan._attribute.index', $data);
     }
 
     

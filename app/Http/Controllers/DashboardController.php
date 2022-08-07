@@ -12,6 +12,6 @@ class DashboardController extends Controller
         $data = [
             'attribute' => Attribute::where('status', 3)->get(),
         ];
-        return view('_member.dashboard.index', $data);
+        return view('_dashboard.index', $data);
     }
 }

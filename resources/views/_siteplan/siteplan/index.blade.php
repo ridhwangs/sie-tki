@@ -1,4 +1,4 @@
-@extends('_member.main')
+@extends('dashboard')
 @section('title', 'Siteplan')
 
 @section('content')  

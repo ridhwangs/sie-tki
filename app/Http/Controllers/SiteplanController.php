@@ -14,7 +14,7 @@ class SiteplanController extends Controller
         $data = [
             'main' => Main::get(),
         ];
-        return view('_member.siteplan.index', $data);
+        return view('_siteplan.siteplan.index', $data);
     }
 
     public function details($name)
@@ -24,6 +24,6 @@ class SiteplanController extends Controller
             'attribute' => Attribute::where('id_main', $main->id)->get(),
             'cluster' => $main,
         ];
-        return view('_member.siteplan.details', $data);
+        return view('_siteplan.siteplan.details', $data);
     }
 }

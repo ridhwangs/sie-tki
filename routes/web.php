@@ -28,5 +28,7 @@ Route::get('/member/register', 'App\Http\Controllers\RegisterController@index')-
 Route::post('/register', 'App\Http\Controllers\RegisterController@store')->name('register.store');
 
 Route::get('/member/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
-Route::get('/member/siteplan', 'App\Http\Controllers\SiteplanController@index')->name('siteplan.index');
-Route::get('/member/siteplan/{name}', 'App\Http\Controllers\SiteplanController@details')->name('siteplan.details');
+Route::get('/siteplan', 'App\Http\Controllers\SiteplanController@index')->name('siteplan.index');
+Route::get('/siteplan/{name}', 'App\Http\Controllers\SiteplanController@details')->name('siteplan.details');
+
+Route::resource('/penghuni/card', 'App\Http\Controllers\CardController');
