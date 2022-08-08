@@ -89,53 +89,22 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="position-sticky pt-3 sidebar-sticky">
             <ul class="nav flex-column">
+             
+              @foreach($menu AS $keys => $rows)
+              @if(@$menu[$keys-1]->group_menu != $rows->group_menu)
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                <span>Siteplan</span>
+                <span>{{ $rows->group_menu }}</span>
                 <a class="link-secondary" href="#" aria-label="Add a new report">
                   <span data-feather="plus-circle" class="align-text-bottom"></span>
                 </a>
               </h6>
+              @endif
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('dashboard.index') }}">
-                  <span data-feather="home" class="align-text-bottom"></span>
-                  Dashboard
+                <a class="nav-link active" aria-current="page" href="{{ route($rows->route_name) }}">
+                  {{ $rows->nm_menu }}
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('siteplan.index') }}">
-                  <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                  Siteplan
-                </a>
-              </li>
-            </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-              <span>Member</span>
-              <a class="link-secondary" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle" class="align-text-bottom"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('register.index') }}">
-                  <span data-feather="file-text" class="align-text-bottom"></span>
-                  Member Register
-                </a>
-              </li>
-            </ul>
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-              <span>Penghuni</span>
-              <a class="link-secondary" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle" class="align-text-bottom"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('card.index') }}">
-                  <span data-feather="file-text" class="align-text-bottom"></span>
-                  Card Table
-                </a>
-              </li>
+              @endforeach
             </ul>
           </div>
         </nav>

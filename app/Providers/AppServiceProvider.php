@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Pagination\Paginator;
 
+use App\Models\Menu;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         //
         Builder::defaultStringLength(191);
         Paginator::useBootstrap();
+        view()->share('menu', Menu::orderBy('posisi','ASC')->get());
     }
 }

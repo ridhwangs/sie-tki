@@ -27,8 +27,9 @@ Route::post('/logout','App\Http\Controllers\LoginController@logout');
 Route::get('/member/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
 Route::post('/register', 'App\Http\Controllers\RegisterController@store')->name('register.store');
 
-Route::get('/member/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
 Route::get('/siteplan', 'App\Http\Controllers\SiteplanController@index')->name('siteplan.index');
 Route::get('/siteplan/{name}', 'App\Http\Controllers\SiteplanController@details')->name('siteplan.details');
 
 Route::resource('/penghuni/card', 'App\Http\Controllers\CardController');
+Route::post('/penghuni/card/upload', 'App\Http\Controllers\CardController@upload')->name('card.upload');

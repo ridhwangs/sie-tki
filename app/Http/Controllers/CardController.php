@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use App\Models\Card;
 
@@ -92,5 +97,40 @@ class CardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function upload(Request $request)
+    {
+      
+        $this->validate($request, [
+            'uploaded_file' => 'required|file|mimes:csv,txt'
+        ]);
+        $the_file = $request->file('uploaded_file');
+        try{
+            $spreadsheet = IOFactory::load($the_file->getRealPath());
+            $sheet        = $spreadsheet->getActiveSheet();
+            $row_limit    = $sheet->getHighestDataRow();
+            $column_limit = $sheet->getHighestDataColumn();
+            $row_range    = range( 2, $row_limit );
+            $column_range = range( 'F', $column_limit );
+            $startcount = 2;
+            $data = array();
+            foreach ( $row_range as $row ) {
+                $data[] = [
+                    'rfid' => $sheet->getCell('A'. $row )->getValue(),
+                    'expired_date' => $sheet->getCell('B'. $row )->getValue(),
+                    'cluster' => $sheet->getCell('C'. $row )->getValue(),
+                    'home_no' => $sheet->getCell('D'. $row )->getValue(),
+                    'nama_pemilik' => Str::replace("'", '',Str::replace('"', '', $sheet->getCell('F'. $row )->getValue())),
+                ];
+                $startcount++;
+            }
+            echo '<pre>';
+            print_r($data);
+            die();
+        } catch (Exception $e) {
+            $error_code = $e->errorInfo[1];
+            echo 'There was a problem uploading the data!';
+        }
     }
 }
