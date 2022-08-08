@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use App\Models\Card;
+use App\Models\Master_cluster;
 
 class CardController extends Controller
 {
@@ -18,6 +19,7 @@ class CardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $data = [
@@ -116,18 +118,24 @@ class CardController extends Controller
             $startcount = 2;
             $data = array();
             foreach ( $row_range as $row ) {
-                $data[] = [
+                $master_cluster = Master_cluster::where('nama_cluster', $sheet->getCell('C'. $row )->getValue())->first();
+                $data = [
                     'rfid' => $sheet->getCell('A'. $row )->getValue(),
                     'expired_date' => $sheet->getCell('B'. $row )->getValue(),
-                    'cluster' => $sheet->getCell('C'. $row )->getValue(),
+                    'cluster_id' => $master_cluster->cluster_id,
                     'home_no' => $sheet->getCell('D'. $row )->getValue(),
                     'nama_pemilik' => Str::replace("'", '',Str::replace('"', '', $sheet->getCell('F'. $row )->getValue())),
+                    'created_by' => 'Import',
                 ];
+                $card_table = Card::where('rfid', $data['rfid'])->count();
+                if($card_table > 0){
+                    Card::where('rfid', $data['rfid'])->update($data);
+                }else{
+                    Card::create($data);
+                }
                 $startcount++;
             }
-            echo '<pre>';
-            print_r($data);
-            die();
+            return redirect()->back()->with('message', 'Berhasil di simpan!');
         } catch (Exception $e) {
             $error_code = $e->errorInfo[1];
             echo 'There was a problem uploading the data!';
