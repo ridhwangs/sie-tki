@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Main;
+use App\Models\Cluster;
 use App\Models\Attribute;
 
 class MainController extends Controller
@@ -12,29 +12,21 @@ class MainController extends Controller
     public function index()
     {
         $data = [
-            'main' => Main::get(),
+            'main' => Cluster::get(),
         ];
-        return view('index', $data);
+        return view('_main.index', $data);
     }
 
-    public function view($id)
+
+    public function view($name)
     {
+        $cluster = Cluster::where('name', $name)->first();
+
         $data = [
-            'main' => Main::where('id', $id)->first(),
-            'attribute' => Attribute::where('id_main', $id)->get(),
+            'main' => $cluster,
+            'attribute' => Attribute::where('id_main', $cluster->id)->get(),
         ];
-        return view('_siteplan._attribute.index', $data);
+        return view('_main.view', $data);
     }
 
-    
-
-    public function update(Request $request)
-    {
-        $data = [
-            'name' => $request->name,
-            'information' => $request->information,
-        ];
-        Main::where('id', $request->id)->update($data);
-        return redirect()->back()->with('message', 'Berhasil di simpan!');
-    }
 }

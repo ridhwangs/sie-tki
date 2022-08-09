@@ -1,9 +1,9 @@
 @extends('dashboard')
-@section('title', 'Siteplan '. $cluster->name)
+@section('title', 'CLUSTER '. $cluster->name)
 
 @section('content')  
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-<h1 class="h2">@yield('title')</h1> <a href="{{ route('siteplan.index'); }}" class="btn-close" aria-label="Close"></a>
+<h1 class="h2">@yield('title') - <a href="javascript:void(0);" onclick="open_popup('{{ route('main.view', $cluster->name); }}')"><i class="fa-solid fa-eye"></i> VIEW</a></h1> <a href="{{ route('siteplan.index'); }}" class="btn-close" aria-label="Close"></a>
 </div>
 <div class="row">
     <div class="col-12 mb-3">
@@ -11,16 +11,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{{ url($cluster->img_src) }}" class="img-thumbnail rounded mx-auto d-block" loading="lazy" alt="" width="350px">
+                        <img src="{{ url('assets/cluster/compressed/'.$cluster->img_src) }}" class="img-thumbnail rounded mx-auto d-block" loading="lazy" alt="" width="350px">
                     </div>
                     <div class="col-md-8">
-                    <form method="POST" id="form-main" action="{{ route('main.update') }}">
+                    <form method="POST" id="form-main" action="{{ route('cluster.update') }}">
                         @csrf
                         <input type="hidden" name="id" value="{{  $cluster->id }}">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" name="name" id="name" value="{{ $cluster->name }}" aria-describedby="nameHelp" required>
-                                <div id="nameHelp" class="form-text">Jangan menggunakan spasi.</div>
+                                <div id="nameHelp" class="form-text">Cluster.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="information" class="form-label">Information</label>
@@ -49,14 +49,12 @@
                         <thead>
                             <tr>
                                 <th>No Rumah</th>
-                                <th>Type Kavling</th>
+                                <th>Type</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
                                 <th>Marketing</th>
                                 <th>Kode VA</th>
-                                <th>Created By</th>
-                                <th>Created At</th>
-                                <th>Update At</th>
+                                <th>Jalan</th>
                                 <th widht="1%">#</th>
                             </tr>
                         </thead>
@@ -66,29 +64,24 @@
                                 $status = [
                                     '0' => 'Tersedia',
                                     '1' => 'Terjual',
-                                    '2' => 'Booked'
+                                    '2' => 'Booked',
+                                    '3' => 'Show Unit'
                                 ];
                                 $table_status = [
                                     '0' => '',
                                     '1' => 'table-success',
-                                    '2' => 'table-warning'
-                                ];
-                                $home_icon = [
-                                    '0' => '<i class="fa-solid fa-house-blank"></i>',
-                                    '1' => '<i class="fa-solid fa-house-user"></i>',
-                                    '2' => '<i class="fa-solid fa-house-lock"></i>'
+                                    '2' => 'table-warning',
+                                    '3' => 'table-danger',
                                 ];
                             @endphp
                                 <tr class="{{ $table_status[$rows->status] }}">
-                                    <td>{!! $home_icon[$rows->status] !!} {{ $rows->no }}</td>
+                                    <td><a href="javascript:void(0);" onclick="viewDetails({{ $rows->id }})"><i class="fa-solid fa-file-pen"></i></a> {{ $rows->no }}</td>
                                     <td>{{ $rows->type_kavling }}</td>
                                     <td>{{ $rows->keterangan }}</td>
                                     <td>{{ $status[$rows->status] }}</td>
                                     <td>{{ $rows->marketing }}</td>
                                     <td>{{ $rows->kode_va }}</td>
-                                    <td>{{ $rows->created_by }}</td>
-                                    <td>{{ $rows->created_at }}</td>
-                                    <td>{{ $rows->updated_at }}</td>
+                                    <td>{{ $rows->jalan }}</td>
                                     <td>
                                         @if($rows->status == 2)
                                             <a class="btn btn-success" onclick="approved({{ $rows->id }})" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Approved</a>
@@ -113,14 +106,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-approved" method="post" action="{{ route('attribute.update') }}">
+        <form id="form-approved" method="post" action="{{ route('siteplan.update') }}">
             @csrf
-            <input type="hidden" class="form-control" id="id" name="id" value="">
+            <input type="hidden" class="form-control id" id="id" name="id" value="">
             <input type="hidden" class="form-control" id="status" name="status" value="1">
             <div class="row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Marketing</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="marketing" value="">
+                    <input type="text" readonly class="form-control-plaintext marketing" id="marketing" value="">
                 </div>
             </div>
             <div class="row">
@@ -148,13 +141,91 @@
   </div>
 </div>
 
+ <!-- Modal -->
+ <div class="modal fade" id="modalDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalDetailsTitle">{Null}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="form-attr" method="post" action="{{ route('siteplan.update') }}">
+            @csrf
+            <input type="hidden" class="form-control id" id="id" name="id">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="no">Nomor</label>
+                        <input type="text" class="form-control" id="no" name="no" placeholder="no">
+                    </div>
+                    <div class="form-group">
+                        <label for="type_kavling">Type Kavling</label>
+                        <input type="text" class="form-control" id="type_kavling" name="type_kavling" placeholder="type_kavling">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control status" id="status" name="status">
+                            <option value="1">Terjual</option>
+                            <option value="0">Tersedia</option>
+                            <option value="2">Booked</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="marketing">Marketing</label>
+                        <input type="text" class="form-control marketing" id="marketing" name="marketing" placeholder="marketing">
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan Lainya</label>
+                        <textarea class="form-control" id="keterangan" name="keterangan" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-5 border-start border-danger">
+                    <div class="form-group">
+                        <label for="size_width">Size Width</label>
+                        <input type="text" class="form-control" id="size_width" name="size_width" placeholder="size_width">
+                    </div>  
+                    <div class="form-group">
+                        <label for="size_height">Size Height</label>
+                        <input type="text" class="form-control" id="size_height" name="size_height" placeholder="size_height">
+                    </div>
+                    <div class="form-group">
+                        <label for="margin_left">Margin Left</label>
+                        <input type="text" class="form-control" id="margin_left" name="margin_left" placeholder="margin_left">
+                    </div> 
+                    <div class="form-group">
+                        <label for="margin_top">Margin Top</label>
+                        <input type="text" class="form-control" id="margin_top" name="margin_top" placeholder="margin_top">
+                    </div>  
+                    <div class="form-group">
+                        <label for="background_color">Color</label>
+                        <input type="text" class="form-control" id="background_color" name="background_color" placeholder="background_color">
+                    </div> 
+                    <div class="form-group">
+                        <label for="border_prop">Border</label>
+                        <input type="text" class="form-control" id="border_prop" name="border_prop" placeholder="border_prop">
+                    </div>                
+                </div>
+            </div>
+              
+               
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="form-attr" class="btn btn-primary rounded-0">Simpan</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 @stop
 @section('script')
 <script>
     function approved(id) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
-            url: '{{ route('attribute.details', '') }}/' + id,
+            url: '{{ route('siteplan.details', '') }}/' + id,
             data: {_token: CSRF_TOKEN},
             type: 'GET',
             dataType: 'json',
@@ -162,13 +233,77 @@
         .done(function (data) {
             $('#modalApproved').modal('show'); 
             $("#staticEmail").val(data.marketing)
-            $("#id").val(data.id)
+            $(".id").val(data.id)
             $("#marketing").val(data.nama_user)
             console.log(data);
         })
         .fail(function (data) {
             console.log(data);
         })
+    }
+
+    function viewDetails(id) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            url: '{{ route('siteplan.details', '') }}/' + id,
+            data: {_token: CSRF_TOKEN},
+            type: 'GET',
+            dataType: 'json',
+        })
+        .done(function (data) {
+            $("#modalDetailsTitle").html(data._div);
+            $(".id").val(data.id);
+            $("#no").val(data.no);
+            $(".status").val(data.status);
+            $("#keterangan").val(data.keterangan);
+            $(".marketing").val(data.marketing);
+            $("#type_kavling").val(data.type_kavling);
+            $('#modalDetails').modal('show'); 
+            $("#size_width").val(data.size_width);
+            $("#size_height").val(data.size_height);
+            $("#margin_left").val(data.margin_left);
+            $("#margin_top").val(data.margin_top);
+            $("#background_color").val(data.background_color);
+            $("#border_prop").val(data.border_prop);
+        })
+        .fail(function (data) {
+            console.log(data);
+        })
+    }
+
+    $('#form-attr').submit(function() {
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: "JSON",
+        })
+        .done(function (data) {
+            location.reload();
+        })
+        .fail(function (data) {
+            console.log(data);
+        })
+        return false;
+    });
+
+    function open_popup(url) {
+        params = 'width=' + screen.width;
+        params += ', height=' + screen.height;
+        params += ', top=0, left=0'
+        params += ', fullscreen=yes';
+        params += ', directories=no';
+        params += ', location=no';
+        params += ', menubar=no';
+        params += ', resizable=no';
+        params += ', status=no';
+        params += ', toolbar=no';
+        myWindow = window.open(url, 'VIEW MODE', params);
+        // Add this event listener; the function will be called when the window closes
+        if (window.focus) {
+        myWindow.focus()
+        }
+        return false;
     }
 </script>
 @stop

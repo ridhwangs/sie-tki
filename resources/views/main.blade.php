@@ -16,8 +16,9 @@
         </style>
     </head>
     <body>
-       
-        @yield('content')
+        
+    @yield('content')
+        
         <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
         <!-- <script src="//code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
         <!-- JavaScript Bundle with Popper -->
