@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Main extends Model
 {
-    protected $table = '_main';
+    protected $table = '_cluster';
     protected $primaryKey = 'id';
 }
