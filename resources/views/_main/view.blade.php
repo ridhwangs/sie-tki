@@ -5,7 +5,6 @@
         font-family: 'Nunito', sans-serif;
         background-color:black;
         height:100vh;
-        width:100vh;
     }
     .break-top {
         padding-top:55px;
