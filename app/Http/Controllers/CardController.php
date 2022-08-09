@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
@@ -35,7 +36,10 @@ class CardController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'master_cluster' => Master_cluster::get(),
+        ];
+        return view('_penghuni.card.create', $data);
     }
 
     /**
@@ -46,13 +50,18 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'rfid' => 'required|unique:db_hunian.card_table|max:16',
+        ]);
         $data = [
+            'cluster_id' => $request->cluster_id,
+            'rfid' => $request->rfid,
             'nama_pemilik' => $request->nama_pemilik,
-            'home_no' => $request->home_no,
             'kode_va' => $request->kode_va,
+            'created_by' => Auth::user()->email,
         ];
-        Card::where('id', $request->id)->update($data);
-        return redirect()->back()->with('message', 'Berhasil di simpan!');
+        Card::create($data);
+        return redirect()->back()->with('message', $data['rfid'].' Berhasil di simpan!');
     }
 
     /**

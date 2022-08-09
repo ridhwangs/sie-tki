@@ -16,6 +16,7 @@
                 </div>
             </form>
         </div>
+        <a href="{{ route('card.create') }}" class="btn btn-sm btn-link">Register New</a>
     </div>
 </div>
 <div class="card">
