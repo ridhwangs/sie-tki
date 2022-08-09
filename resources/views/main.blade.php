@@ -13,10 +13,57 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             @yield('style');
+            #cover-spin {
+                position: fixed;
+                width: 100%;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                display: none;
+                cursor: wait;
+            }
+
+            @-webkit-keyframes spin {
+                from {
+                    -webkit-transform: rotate(0deg);
+                }
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            #cover-spin::after {
+                content: "";
+                display: block;
+                position: absolute;
+                left: 48%;
+                top: 40%;
+                width: 40px;
+                height: 40px;
+                border-style: solid;
+                border-color: black;
+                border-top-color: transparent;
+                border-width: 4px;
+                border-radius: 50%;
+                -webkit-animation: spin 0.8s linear infinite;
+                animation: spin 0.8s linear infinite;
+            }
         </style>
     </head>
     <body>
-        
+    <div id="cover-spin"></div>    
     @yield('content')
         
         <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
