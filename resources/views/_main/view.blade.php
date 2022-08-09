@@ -47,7 +47,7 @@
             </div>
         </nav>    
         <div class="break-top"></div>
-        <div class="contenMain" style="transform: scale(0.1);transform-origin: 0% 0% 0px;">
+        <div class="contenMain">
             <img src="{{ url('assets/cluster/compressed/'.$main->img_src) }}"  style="position:relative; width: fit-content;">
             @foreach($attribute AS $rows)
                 <div id="{{ $rows->_div }}"  @if($rows->status != 3) onclick="viewDetails({{ $rows->id }});" @endif>
@@ -105,26 +105,7 @@
 @stop
 @section('script')
 <script>
-    var scaleNow = $("#controllerMain").val();
-    setZoom(6/10,document.getElementsByClassName('contenMain')[0]);
-    function setZoom(zoom,el) {
-        transformOrigin = [0,0];
-            el = el || instance.getContainer();
-            var p = ["webkit", "moz", "ms", "o"],
-                s = "scale(" + zoom + ")",
-                oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
-            for (var i = 0; i < p.length; i++) {
-                el.style[p[i] + "Transform"] = s;
-                el.style[p[i] + "TransformOrigin"] = oString;
-            }
-            el.style["transform"] = s;
-            el.style["transformOrigin"] = oString;
-        
-    }
-    function showVal(a){
-        var zoomScale = Number(a)/10;
-        setZoom(zoomScale,document.getElementsByClassName('contenMain')[0])
-    }
+ 
     function viewDetails(id) {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
