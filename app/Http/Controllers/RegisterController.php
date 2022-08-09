@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('_member/member/create');
+        return view('_auth/register');
     }
  
     public function store(Request $request)

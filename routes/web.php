@@ -24,7 +24,7 @@ Route::get('/member/auth', 'App\Http\Controllers\LoginController@index')->name('
 Route::post('/session','App\Http\Controllers\LoginController@authenticate')->name('login.session');
 Route::post('/logout','App\Http\Controllers\LoginController@logout');
 
-Route::get('/member/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
+Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
 Route::post('/register', 'App\Http\Controllers\RegisterController@store')->name('register.store');
 
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard.index');
