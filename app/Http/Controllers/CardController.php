@@ -37,7 +37,7 @@ class CardController extends Controller
     public function create()
     {
         $data = [
-            'master_cluster' => Master_cluster::orderBy('master_cluster','asc')->get(),
+            'master_cluster' => Master_cluster::get(),
         ];
         return view('_penghuni.card.create', $data);
     }
