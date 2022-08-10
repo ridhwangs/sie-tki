@@ -109,6 +109,7 @@ class CardController extends Controller
             'home_no' => $request->home_no,
             'kode_va' => $request->kode_va,
             'created_by' => Auth::user()->email,
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
         Card::where('id', $request->id)->update($data);
         return redirect()->back()->with('message', $data['nama_pemilik'].' Berhasil di simpan!');
