@@ -30,4 +30,13 @@ class MainController extends Controller
         return view('_main.view', $data);
     }
 
+    public function details($id)
+    {
+
+        $data = [
+            'attribute' => Attribute::where('id', $id)->get(),
+        ];
+        return view('_main.details', $data);
+    }
+
 }

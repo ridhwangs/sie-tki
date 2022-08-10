@@ -109,99 +109,41 @@
                 </div>
             @endforeach
         </div>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="modalDetails" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDetailsTitle">{Null}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form-attr" method="post" action="{{ route('cluster.update') }}">
-                    @csrf
-                        <input type="hidden" class="form-control" id="id" name="id" placeholder="nomor_rumah">
-                        <div class="form-group">
-                            <label for="no">Nomor</label>
-                            <input type="text" class="form-control" id="no" placeholder="no" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="type_kavling">Type Kavling</label>
-                            <input type="text" class="form-control" id="type_kavling" placeholder="type_kavling" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" id="status" name="status">
-                                <option value="1">Terjual</option>
-                                <option value="0">Tersedia</option>
-                                <option value="2">Booked</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="marketing">Marketing</label>
-                            <input type="text" class="form-control" id="marketing" name="marketing" placeholder="marketing">
-                        </div>
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan Lainya</label>
-                            <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="form-attr" class="btn btn-primary rounded-0">Simpan</button>
-                </div>
-                </div>
-            </div>
-        </div>
 @stop
 @section('script')
 <script>
-    var scaleNow = $("#controllerMain").val();
-    setZoom({{ $zoom_level }}/10,document.getElementsByClassName('contenMain')[0]);
-    function setZoom(zoom,el) {
-        transformOrigin = [0,0];
-            el = el || instance.getContainer();
-            var p = ["webkit", "moz", "ms", "o"],
-                s = "scale(" + zoom + ")",
-                oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
-            for (var i = 0; i < p.length; i++) {
-                el.style[p[i] + "Transform"] = s;
-                el.style[p[i] + "TransformOrigin"] = oString;
-            }
-            el.style["transform"] = s;
+    $(function() {
+        console.log( "ready!" );
+        var scaleNow = $("#controllerMain").val();
+        setZoom({{ $zoom_level }}/10,document.getElementsByClassName('contenMain')[0]);
+        function setZoom(zoom,el) {
+            transformOrigin = [0,0];
+                el = el || instance.getContainer();
+                var p = ["webkit", "moz", "ms", "o"],
+                    s = "scale(" + zoom + ")",
+                    oString = (transformOrigin[0] * 100) + "% " + (transformOrigin[1] * 100) + "%";
+                for (var i = 0; i < p.length; i++) {
+                    el.style[p[i] + "Transform"] = s;
+                    el.style[p[i] + "TransformOrigin"] = oString;
+                }
+                el.style["transform"] = s;
             el.style["transformOrigin"] = oString;
-        
-    }
+            
+        }
+       
+       
+    });
+
     function showVal(a){
         $('#cover-spin').show(0);
         // var zoomScale = Number(a)/10;
         // setZoom(zoomScale,document.getElementsByClassName('contenMain')[0]);
         location.replace("{{ route('main.view', $main->name); }}?zoom=" + a);
     }
+    
     function viewDetails(id) {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            url: '{{ route('siteplan.details', '') }}/' + id,
-            data: {_token: CSRF_TOKEN},
-            type: 'GET',
-            dataType: 'json',
-        })
-        .done(function (data) {
-            $("#modalDetailsTitle").html(data._div);
-            $("#id").val(data.id);
-            $("#no").val(data.no);
-            $("#status").val(data.status);
-            $("#keterangan").val(data.keterangan);
-            $("#marketing").val(data.marketing);
-            $("#type_kavling").val(data.type_kavling);
-            $('#modalDetails').modal('show'); 
-            console.log(data);
-        })
-        .fail(function (data) {
-            console.log(data);
-        })
+        location.replace("{{ route('main.details', ''); }}/" + id);
     }
+    
 </script>
 @stop
