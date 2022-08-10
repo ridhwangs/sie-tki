@@ -98,7 +98,7 @@
                 <p class="card-text">{{ $rows->information }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                    <a href="{{ route('main.view', $rows->name); }}?zoom=5" class="btn btn-sm btn-outline-secondary">View</a>
+                    <a href="{{ route('main.view', $rows->name); }}" class="btn btn-sm btn-outline-secondary">View</a>
                     </div>
                     <small class="text-muted">{{ $rows->updated_at }}</small>
                 </div>

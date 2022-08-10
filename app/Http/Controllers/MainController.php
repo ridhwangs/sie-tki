@@ -21,10 +21,14 @@ class MainController extends Controller
     public function view(Request $request, $name)
     {
         $cluster = Cluster::where('name', $name)->first();
-
+        if(empty($request->zoom)){
+            $zoom = 5;
+        }else{
+            $zoom = $request->zoom;
+        }
         $data = [
             'main' => $cluster,
-            'zoom_level' => $request->zoom,
+            'zoom_level' => $zoom,
             'attribute' => Attribute::where('id_main', $cluster->id)->get(),
         ];
         return view('_main.view', $data);
