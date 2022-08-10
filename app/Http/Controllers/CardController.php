@@ -21,10 +21,17 @@ class CardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
+        $addWhere = '->paginate(15)';
+        if(!empty($request->search)){
+            $query = Card::join('master_cluster','master_cluster.cluster_id', 'card_table.cluster_id')->orderBy('card_table.nama_pemilik','ASC')->where('card_table.rfid', 'like', '%' . $request->search . '%')->orWhere('card_table.nama_pemilik', 'like', '%' . $request->search . '%');
+        }else{
+            $query = Card::join('master_cluster','master_cluster.cluster_id', 'card_table.cluster_id')->orderBy('card_table.nama_pemilik','ASC');
+        }
         $data = [
-            'card' => Card::join('master_cluster','master_cluster.cluster_id', 'card_table.cluster_id')->orderBy('card_table.nama_pemilik','ASC')->paginate(15),
+            'card' => $query->paginate(15),
+            'master_cluster' => Master_cluster::get(),
         ];
         return view('_penghuni.card.index', $data);
     }
@@ -94,9 +101,17 @@ class CardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = [
+            'cluster_id' => $request->cluster_id,
+            'nama_pemilik' => $request->nama_pemilik,
+            'home_no' => $request->home_no,
+            'kode_va' => $request->kode_va,
+            'created_by' => Auth::user()->email,
+        ];
+        Card::where('id', $request->id)->update($data);
+        return redirect()->back()->with('message', $data['nama_pemilik'].' Berhasil di simpan!');
     }
 
     /**

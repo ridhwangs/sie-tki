@@ -37,4 +37,5 @@ Route::post('logged/siteplan/update', 'App\Http\Controllers\SiteplanController@u
 Route::get('logged/siteplan/duplicate/{id}', 'App\Http\Controllers\SiteplanController@duplicate')->name('siteplan.duplicate');
 
 Route::resource('logged/penghuni/card', 'App\Http\Controllers\CardController');
+Route::post('logged/penghuni/update/card', 'App\Http\Controllers\CardController@update')->name('card.update');
 Route::post('logged/penghuni/card/upload', 'App\Http\Controllers\CardController@upload')->name('card.upload');
