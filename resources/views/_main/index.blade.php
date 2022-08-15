@@ -1,127 +1,32 @@
 @extends('main')
 @section('title', 'Selamat Datang')    
-@section('style')
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-   
-@stop
 @section('content')
 
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Member Area</h4>
-          <ul class="list-unstyled">
-            <li><a href="{{ route('login'); }}" class="text-white">Login</a></li>
-          </ul>
+<div class="grid-x grid-padding-x">
+        <div class="large-12 medium-12 cell">
+          <h5>Here&rsquo;s your basic grid:</h5>
+          <!-- Grid Example -->
+
+          <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+              <div class="primary callout">
+                <p><strong>This is a twelve cell section in a grid-x.</strong> Each of these includes a div.callout element so you can see where the cell are - it's not required at all for the grid.</p>
+              </div>
+            </div>
+          </div>
+          <div class="grid-x grid-padding-x">
+          @foreach($main as $rows)
+            <div class="large-4 medium-4 small-12 cell">
+              <div class="card">
+                <img src="{{ url('assets/cluster/thumbnail/'.$rows->img_src) }}">
+                <div class="card-section">
+                <a href="{{ route('main.view', Str::lower($rows->name)); }}" class="btn btn-sm btn-outline-secondary">View</a>
+                </div>
+              </div>
+            </div>
+          @endforeach
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="navbar navbar-light bg-light shadow-sm">
-    <div class="container">
-      <a href="javascript:void(0);" class="navbar-brand d-flex align-items-center">
-        <img src="assets/logo.png" alt="" width="220"> 
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<main>
-  <div class="album py-5 bg-light" style="min-height:100vh;">
-    <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-        @foreach($main as $rows)
-            <div class="col">
-            <div class="card shadow-sm">
-                <img src="{{ url('assets/cluster/thumbnail/'.$rows->img_src) }}" class="img-fluid" alt="{{ $rows->name }}">
-                <div class="card-body">
-                <p class="card-text">{{ $rows->information }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                    <a href="{{ route('main.view', Str::lower($rows->name)); }}" class="btn btn-sm btn-outline-secondary">View</a>
-                    </div>
-                    <small class="text-muted">{{ $rows->updated_at }}</small>
-                </div>
-                </div>
-            </div>
-            </div>
-        @endforeach
-       
-        
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">This example is &copy; Website</p>
-    <p class="mb-0">By<a href="#"> Smartcode</a>.</p>
-  </div>
-</footer>
 
 @stop
