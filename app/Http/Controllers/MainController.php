@@ -13,6 +13,7 @@ class MainController extends Controller
     {
         $data = [
             'main' => Cluster::get(),
+            'attribute' => Attribute::where('status', '0')->limit(9)->get(),
         ];
         return view('_main.index', $data);
     }
