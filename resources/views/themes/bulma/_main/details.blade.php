@@ -164,7 +164,7 @@ img.modal-content {
                 <div class="card-content">
                     <div class="content article-body">
                         <figure class="image is-fullwidth">
-                                <img class="myImg" src="{{ url('assets/cluster/details/'.$main->name.'/'.$rows->img_src) }}">
+                                <img class="myImg" src="{{ url('assets/cluster/details/'.Str::lower($main->name).'/'.$rows->img_src) }}">
                  
                         </figure>
                     </div>
