@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', 'App\Http\Controllers\MainController@index')->name('main');
-Route::get('siteplan/{name}', 'App\Http\Controllers\MainController@view')->name('main.view');
-Route::get('siteplan/details/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
+Route::get('', 'App\Http\Controllers\MainController@landing')->name('landing');
+
+Route::get('{themes}', 'App\Http\Controllers\MainController@index')->name('main');
+Route::get('siteplan/{themes}/{name}', 'App\Http\Controllers\MainController@view')->name('main.view');
+Route::get('siteplan/details/{themes}/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
 
 Route::get('cluster/{id}', 'App\Http\Controllers\ClusterController@view')->name('cluster.view');
 Route::post('cluster/update', 'App\Http\Controllers\ClusterController@update')->name('cluster.update');
