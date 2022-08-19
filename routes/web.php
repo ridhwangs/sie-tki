@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', 'App\Http\Controllers\MainController@landing')->name('landing');
 
-Route::get('{themes}', 'App\Http\Controllers\MainController@index')->name('main');
+Route::get('siteplan/{themes}', 'App\Http\Controllers\MainController@index')->name('main');
 Route::get('siteplan/{themes}/{name}', 'App\Http\Controllers\MainController@view')->name('main.view');
 Route::get('siteplan/details/{themes}/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
 
@@ -41,3 +41,8 @@ Route::get('logged/siteplan/duplicate/{id}', 'App\Http\Controllers\SiteplanContr
 Route::resource('logged/penghuni/card', 'App\Http\Controllers\CardController');
 Route::post('logged/penghuni/update/card', 'App\Http\Controllers\CardController@update')->name('card.update');
 Route::post('logged/penghuni/card/upload', 'App\Http\Controllers\CardController@upload')->name('card.upload');
+
+Route::get('logged/administrasi/masuk', 'App\Http\Controllers\AdministrasiController@masuk')->name('administrasi.masuk');
+Route::get('logged/administrasi/create/{jenis}', 'App\Http\Controllers\AdministrasiController@create')->name('administrasi.create');
+Route::post('logged/administrasi/store', 'App\Http\Controllers\AdministrasiController@store')->name('administrasi.store');
+Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
