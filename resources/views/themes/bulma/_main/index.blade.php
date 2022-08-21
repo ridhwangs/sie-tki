@@ -40,7 +40,7 @@ html {
 
 <section class="hero is-fullheight video">
     <div class="hero-video">
-        <video poster="https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" playsinline="" autoplay="" muted="" loop="">
+        <video poster="{{ url('assets/video/new_gardenville.MP4') }}" playsinline="" autoplay="" muted="" loop="">
             <source src="{{ url('assets/video/new_gardenville.MP4') }}" type="video/webm">
         </video>
     </div>

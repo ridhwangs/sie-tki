@@ -15,7 +15,7 @@ class SiteplanController extends Controller
         $data = [
             'main' => Cluster::get(),
         ];
-        return view('_siteplan.siteplan.index', $data);
+        return view('_siteplan.index', $data);
     }
 
     public function show($id)
@@ -24,7 +24,7 @@ class SiteplanController extends Controller
             'attribute' => Attribute::where('id_main', $id)->get(),
             'cluster' => Cluster::where('id', $id)->first(),
         ];
-        return view('_siteplan.siteplan.details', $data);
+        return view('_siteplan.details', $data);
     }
 
     public function details($id)

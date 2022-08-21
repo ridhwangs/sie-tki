@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', 'App\Http\Controllers\MainController@landing')->name('landing');
+Route::get('', function () {
+    return redirect('/siteplan/bulma');
+})->name('landing');
 
 Route::get('siteplan/{themes}', 'App\Http\Controllers\MainController@index')->name('main');
 Route::get('siteplan/{themes}/{name}', 'App\Http\Controllers\MainController@view')->name('main.view');
