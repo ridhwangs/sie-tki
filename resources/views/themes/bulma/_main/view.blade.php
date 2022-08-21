@@ -49,7 +49,7 @@
             font-size: {{ $rows->font_size }};
             font-weight: bold;
             cursor: pointer;
-            opacity: 0.1;
+            opacity: 0.6;
         }
         #{{ $rows->_div }}:hover{
             background-color: #2980b9;
