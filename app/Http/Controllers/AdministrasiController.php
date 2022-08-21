@@ -44,7 +44,7 @@ class AdministrasiController extends Controller
             'kd_transaksi' => $kd_transaksi,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
-            'created_by' => 'ridhwangs@gmail.com',
+            'created_by' => Auth::user()->email,
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
