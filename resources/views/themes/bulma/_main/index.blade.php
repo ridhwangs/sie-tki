@@ -4,6 +4,9 @@
 html {
   scroll-behavior: smooth;
 }
+.hero-video{
+    display: block !important;
+}
 @stop
 @section('content')
 <nav class="navbar" role="navigation" aria-label="main navigation">

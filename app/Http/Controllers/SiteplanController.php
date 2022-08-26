@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cluster;
 use App\Models\Attribute;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class SiteplanController extends Controller
 {
