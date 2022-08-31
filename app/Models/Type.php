@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Details extends Model
+class Type extends Model
 {
     use HasFactory;
-    protected $table = '_details';
-    protected $primaryKey = 'id';
+    protected $table = '_type';
     protected $fillable = [
         'id_cluster',
         'type_kavling',
-        'header',
-        'information',
-        'img_src',
+        'luas_tanah',
+        'luas_bangunan',
     ];
+
 }

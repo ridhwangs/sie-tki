@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
-
-class Menu extends Model
+class Roles extends Model
 {
     use HasFactory;
-    protected $table = '_menu';
-    
+    protected $table = '_roles';
+    protected $primaryKey = 'id';
 }

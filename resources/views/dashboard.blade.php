@@ -88,21 +88,17 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="position-sticky pt-3 sidebar-sticky">
             <ul class="nav flex-column">
-             
+              @php
+                $activeMenu = App\Models\Roles::where('id', Auth::user()->id_roles)->first();
+                $active_menu = explode(",", $activeMenu->active_menu);
+                $menu = DB::table('_menu')->whereNull('is_kd_menu')->orderBy('posisi', 'asc')->get(); 
+              @endphp
               @foreach($menu AS $keys => $rows)
-              @if(@$menu[$keys-1]->group_menu != $rows->group_menu)
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                <span>{{ $rows->group_menu }}</span>
-                <a class="link-secondary" href="#" aria-label="Add a new report">
-                  <span data-feather="plus-circle" class="align-text-bottom"></span>
-                </a>
-              </h6>
-              @endif
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route($rows->route_name) }}">
-                  {{ $rows->nm_menu }}
-                </a>
-              </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="{{ $rows->kd_menu }}" style="display: none;" aria-current="page" href="{{ route($rows->route_name) }}">
+                    {{ $rows->nm_menu }}
+                  </a>
+                </li>
               @endforeach
             </ul>
           </div>
@@ -117,6 +113,11 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.js" integrity="sha512-8pHNiqTlsrRjVD4A/3va++W1sMbUHwWxxRPWNyVlql3T+Hgfd81Qc6FC5WMXDC+tSauxxzp1tgiAvSKFu1qIlA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @yield('script')        
+    @yield('script')    
+    <script>
+        @foreach($active_menu as $rows_am)
+          $("#{{ ltrim($rows_am) }}").show();
+        @endforeach
+    </script>    
     </body>
 </html>

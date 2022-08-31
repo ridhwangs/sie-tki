@@ -23,6 +23,7 @@ Route::get('siteplan/details/{themes}/{id}', 'App\Http\Controllers\MainControlle
 
 Route::get('cluster/{id}', 'App\Http\Controllers\ClusterController@view')->name('cluster.view');
 Route::post('cluster/update', 'App\Http\Controllers\ClusterController@update')->name('cluster.update');
+Route::post('type/update', 'App\Http\Controllers\ClusterController@type_update')->name('type.update');
 
 
 Route::get('member/auth', 'App\Http\Controllers\LoginController@index')->name('login')->middleware('guest');
@@ -37,6 +38,8 @@ Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name
 Route::get('logged/siteplan', 'App\Http\Controllers\SiteplanController@index')->name('siteplan.index');
 Route::get('logged/siteplan/{id}', 'App\Http\Controllers\SiteplanController@show')->name('siteplan.show');
 Route::get('logged/siteplan/details/{id}', 'App\Http\Controllers\SiteplanController@details')->name('siteplan.details');
+Route::get('logged/siteplan/delete/{id}', 'App\Http\Controllers\SiteplanController@delete_details')->name('details.delete');
+Route::post('logged/siteplan/store/details', 'App\Http\Controllers\SiteplanController@store_details')->name('details.store');
 Route::post('logged/siteplan/update', 'App\Http\Controllers\SiteplanController@update')->name('siteplan.update');
 Route::get('logged/siteplan/duplicate/{id}', 'App\Http\Controllers\SiteplanController@duplicate')->name('siteplan.duplicate');
 
