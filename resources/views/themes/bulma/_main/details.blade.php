@@ -154,6 +154,12 @@ img.modal-content {
                         <p> No: 
                             <pre>{{ $attribute->no }}</pre>
                         </p>
+                        <p> Luas Tanah: 
+                            <pre>{{ $type->luas_tanah }}</pre>
+                        </p>
+                        <p> Luas Bangunan: 
+                            <pre>{{ $type->luas_bangunan }}</pre>
+                        </p>
                     </div>
                 </div>
             </div>

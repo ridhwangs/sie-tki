@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cluster;
 use App\Models\Attribute;
 use App\Models\Details;
+use App\Models\Type;
 
 class MainController extends Controller
 {
@@ -50,6 +51,7 @@ class MainController extends Controller
             'main' => Cluster::where('id', $attribute->id_main)->first(),
             'attribute' => $attribute,
             'details' => Details::where(['id_cluster' => $attribute->id_main, 'type_kavling' => $attribute->type_kavling])->get(),
+            'type' => Type::where(['id_cluster' => $attribute->id_main, 'type_kavling' => $attribute->type_kavling])->first(),
             'themes' => $themes
         ];
         return view('themes.'.$themes.'._main.details', $data);
