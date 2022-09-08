@@ -113,7 +113,17 @@ img.modal-content {
 
 @stop
 @section('content')
-
+ <nav class="navbar is-dark is-fixed-top" role="navigation">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-dark" href="{{ route('main.view', ['themes' => $themes , 'name' => Str::lower($main->name)]); }}?zoom={{ request()->zoom; }}">
+            <i class="fa-solid fa-angle-left"></i> 
+          </a>
+        </div>
+      </div>
+    </div>
+ </nav>
 <section class="hero is-info is-medium is-bold">
     <div class="hero-body">
     </div>

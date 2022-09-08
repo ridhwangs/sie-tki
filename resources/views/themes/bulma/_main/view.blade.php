@@ -120,7 +120,8 @@
     }
     
     function viewDetails(id) {
-        location.replace("{{ route('main.details', ['themes' => $themes , '']); }}/" + id);
+        var zoom = {{ $zoom_level }};
+        location.replace("{{ route('main.details', ['themes' => $themes , '']); }}/" + id + "?zoom=" + zoom);
     }
     
 </script>
