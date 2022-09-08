@@ -1,7 +1,9 @@
 @extends($themes)
 @section('title', 'Details')    
 @section('style')
-
+body{
+  background-color:#f0f5f0;
+}
 .navbar.is-white {
   background: #F0F2F4;
 }
@@ -87,8 +89,8 @@ div.column.is-8:first-child {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  background-color: rgb(180,206,179); /* Fallback color */
+  background-color: rgba(180,206,179); /* Black w/ opacity */
 }
 
 /* Modal Content (Image) */
@@ -111,17 +113,7 @@ img.modal-content {
 
 @stop
 @section('content')
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a href="{{ route('main.view', ['themes' => $themes , 'name' => Str::lower($main->name)]); }}" class="navbar-item button is-danger"><i class="fa-solid fa-angle-left"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>  
+
 <section class="hero is-info is-medium is-bold">
     <div class="hero-body">
     </div>
@@ -130,33 +122,38 @@ img.modal-content {
 
 <div class="container">
     <!-- START ARTICLE FEED -->
-    <section class="articles">
+    <section class="articles" >
         <div class="column is-8 is-offset-2">
             <!-- START ARTICLE -->
             <div class="card article">
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content has-text-centered">
-                            <p class="title article-title">{{ $main->name }}</p>
+                          
+                            <p class="title article-title">CLUSTER <b>{{ $main->name }}</b></p>
                             <div class="tags has-addons level-item">
                                 <span class="tag is-rounded is-info">{{ $attribute->jalan }}</span>
                                 <span class="tag is-rounded">NO {{ $attribute->no }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="content article-body" style="padding-bottom:80px;">
-                       <p> Type: 
-                            <pre>{{ $attribute->type_kavling }}</pre>
-                        </p>
-                        <p> Jalan: 
-                            <pre>{{ $attribute->jalan }}</pre>
-                        </p>
-                        <p> No: 
-                            <pre>{{ $attribute->no }}</pre>
-                        </p>
-                        <p> Luas Tanah: 
-                            <pre>{{ $type->luas_tanah }}</pre>
-                        </p>
+                    <div class="content article-body" style="padding-bottom:50px;">
+                    <div class="columns is-mobile is-centered is-vcentered ">
+                      <div class="column is-one-fifth">
+                        <img src="{{ url('assets/icon/property-custom-icon-11.png') }}" alt="">
+                      </div>
+                      <div class="column">
+                        <span class="title">TYPE</span><br>
+                        <span class="subtitle">{{ $attribute->type_kavling }}</span>
+                      </div>
+                      <div class="column is-one-fifth">
+                        <img src="{{ url('assets/icon/property-custom-icon-09.png') }}" alt="">
+                      </div>
+                      <div class="column">
+                        <span class="title">Luas Tanah</span><br>
+                        <span class="subtitle">{{ $type->luas_tanah }}</span>
+                      </div>
+                    </div>
                         <p> Luas Bangunan: 
                             <pre>{{ $type->luas_bangunan }}</pre>
                         </p>
@@ -166,12 +163,11 @@ img.modal-content {
             <!-- END ARTICLE -->
             <!-- START ARTICLE -->
             @foreach($details AS $rows)
-            <div class="card article" id="{{ $rows->header }}">
+            <div class="" id="{{ $rows->header }}" >
                 <div class="card-content">
-                    <div class="content article-body">
+                    <div class="content ">
                         <figure class="image is-fullwidth">
                                 <img class="myImg" src="{{ url('assets/cluster/details/'.Str::lower($main->name).'/'.$rows->img_src) }}">
-                 
                         </figure>
                     </div>
                 </div>
