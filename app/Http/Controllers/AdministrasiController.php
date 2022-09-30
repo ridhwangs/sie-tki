@@ -8,10 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Administrasi;
 class AdministrasiController extends Controller
 {
-    public function masuk(Type $var = null)
+    public function masuk(Request $request)
     {
+        if(!empty($request->tgl_awal)){
+            $where = [
+                'coa' => $request->coa,
+                'jenis' => 'masuk'
+            ];
+            $query = Administrasi::where($where)->whereBetween('tanggal', [$request->tgl_awal, $request->tgl_akhir]);
+        }else{
+            $query = Administrasi::where('jenis', 'masuk');
+        }
         $data = [
-            'administrasi' => Administrasi::where('jenis', 'masuk')->paginate(15),
+            'administrasi' => $query->paginate(15)->appends(request()->query()),
+            'sum' => $query->sum('kas_masuk'),
+            'coa' => Administrasi::with('with_coa')->groupBy('coa')->get(), 
         ];
         return view('_administrasi.masuk.index', $data);
     }

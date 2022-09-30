@@ -23,4 +23,9 @@ class Administrasi extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function with_coa()
+    {
+        return $this->belongsTo('App\Models\Coa','coa','coa');
+    }
 }
