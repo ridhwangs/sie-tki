@@ -38,7 +38,14 @@
         #{{ $rows->_div }}{
             position: absolute;
             z-index: inherit;
-            background: {{ $rows->background_color }};
+            @if($rows->status == 0)
+                background: {{ $rows->background_color }};
+                cursor: pointer;
+            @elseif($rows->status == 3)
+                background: #dd3838;
+            @else
+                background: #babbb5;
+            @endif
             width: {{ $rows->size_width }};
             height: {{ $rows->size_height }};
             left: {{ $rows->margin_left }};
@@ -48,12 +55,15 @@
             text-align: center;
             font-size: {{ $rows->font_size }};
             font-weight: bold;
-            cursor: pointer;
-            opacity: 0.1;
+            
+            
+            <!-- opacity: 0.1; -->
         }
         #{{ $rows->_div }}:hover{
-            background-color: #2980b9;
-            color: white;
+            
+            @if($rows->status == 0)
+                background-color: #2980b9;
+            @endif
         }
     @endforeach
 @stop
@@ -81,10 +91,11 @@
     </nav>
 
     <div class="contenMain" style="transform: scale(0.1);transform-origin: 0% 0% 0px;">
-        <img src="{{ url('assets/cluster/compressed/'.$main->img_src) }}" style="position:relative; width: fit-content;">
+        <img src="{{ url('assets/cluster/w-1200/'.$main->img_src) }}" style="position:relative;" width="{{ $main->img_width }}px" height="{{ $main->img_height }}px">
         @foreach($attribute AS $rows)
-            <div id="{{ $rows->_div }}"  @if($rows->status != 3) onclick="viewDetails({{ $rows->id }});" @endif>
-                <!-- {{  Str::replace('_', '', $rows->no);  }} -->
+            <div id="{{ $rows->_div }}"  @if($rows->status == 0) onclick="viewDetails({{ $rows->id }});" @endif>
+                {{  Str::replace('_', '', $rows->no);  }}
+                <!-- {{ $rows->id; }} -->
             </div>
         @endforeach
     </div>

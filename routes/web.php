@@ -52,3 +52,5 @@ Route::get('logged/administrasi/masuk/show/{id}', 'App\Http\Controllers\Administ
 Route::get('logged/administrasi/create/{jenis}', 'App\Http\Controllers\AdministrasiController@create')->name('administrasi.create');
 Route::post('logged/administrasi/store', 'App\Http\Controllers\AdministrasiController@store')->name('administrasi.store');
 Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
+
+Route::get('scale/fixing', 'App\Http\Controllers\SiteplanController@scale_fixing');

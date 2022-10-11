@@ -62,7 +62,7 @@ html {
   <div class="container">
     <div class="columns is-multiline">
       @foreach($main as $rows)
-        <div id="col1" class="column is-3-desktop is-half-tablet">
+        <div id="col1" class="column is-3-desktop is-half-tablet" style="cursor: pointer;" onclick="gotoUrl('{{ route('main.view', ['themes' => $themes , 'name' => Str::lower($rows->name)]); }}')">
           <div class="card">
 
             <header class="card-header">
@@ -86,4 +86,11 @@ html {
     </div>
   </div>
 </section>
+@stop
+@section('script')
+<script>
+    function gotoUrl(url) {
+      location.replace(url);
+    }
+</script>
 @stop

@@ -139,6 +139,33 @@ class SiteplanController extends Controller
         return response()->json($response, 200);
     }
 
+    public function scale_fixing()
+    {
+        $query = Attribute::where('id_main', 1)->where('id','>=', '19')->where('id','<=', '114')->get();
+        $no = 0;
+        foreach ($query as $key => $rows) {
+            $no++;
+            $left = 292 + 48 + 24;
+            $width = 24;
+            $data = [
+                // 'id' => $rows->id,
+                // 'size_width' => '20px',
+                // 'margin_top' => '1145px',
+                // 'margin_left' => $left + ($width * $no) .'px',  
+                // 'border_prop' => 'dotted 1px',
+                // 'font_size' => '8pt',
+                // 'line_height' => '70px',
+                'background_color_default' => '#0ea9b6',
+                'background_color' => '#0ea9b6',
+                // 'size_height' => '70px',
+            ];
+            Attribute::where('id', $rows->id)->update($data);
+            // echo '<pre>';
+            // print_r($data);
+        }
+        echo 'stop, this is successfully';
+    }
+
     // public function duplicate($id)
     // {
     //     $attribute = Attribute::where('_attribute.id', $id)->first();
