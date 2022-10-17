@@ -281,7 +281,6 @@
                         <select class="form-control status" id="status" name="status">
                             <option value="1">Terjual</option>
                             <option value="0">Tersedia</option>
-                            <option value="2">Booked</option>
                         </select>
                     </div>
                     <div class="form-group">

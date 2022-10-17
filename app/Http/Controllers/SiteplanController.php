@@ -91,16 +91,8 @@ class SiteplanController extends Controller
 
     public function update(Request $request)
     {
-        if($request->status == 1){
-            $background_color = '#e74c3c';
-        }elseif($request->status == 2){
-            $background_color = '#f1c40f';
-        }else{
-            $background_color = '#ffffff';
-        }
         $data = [
             'status' => $request->status,
-            'background_color' => $background_color,
             'marketing' => $request->marketing,
             'keterangan' => $request->keterangan,
         ];
