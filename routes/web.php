@@ -16,10 +16,6 @@ Route::get('', function () {
     return redirect('/siteplan/bulma');
 })->name('landing');
 
-Route::get('redirected/login', function () {
-    return redirect('https://sie.tamankopoindah.com/member/auth/');
-})->name('redirected.login');
-
 Route::get('siteplan/{themes}', 'App\Http\Controllers\MainController@index')->name('main');
 Route::get('siteplan/{themes}/{name}', 'App\Http\Controllers\MainController@view')->name('main.view');
 Route::get('siteplan/details/{themes}/{id}', 'App\Http\Controllers\MainController@details')->name('main.details');
