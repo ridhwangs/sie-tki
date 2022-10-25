@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('', function () {
     $url = Request::url();
     if(($url == 'http://sie.tamankopoindah.com') || ($url == 'https://sie.tamankopoindah.com')){
-        echo 'redirected';
+        return redirect('/member/auth');
     }else{
         return redirect('/siteplan/bulma');
     }
