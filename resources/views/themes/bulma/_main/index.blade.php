@@ -4,60 +4,44 @@
 html {
   scroll-behavior: smooth;
 }
-.hero-video{
-    display: block !important;
-}
+  body {
+        font-family: 'Nunito', sans-serif;
+        background-color:black;
+        height:100vh;
+        margin: 0;
+        padding: 0;
+    }
+    
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 8px 0px 8px 0px;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
 @stop
 @section('content')
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="{{ route('landing') }}">
-      <img src="{{ url('assets/logo.png') }}" width="112" height="28">
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="#cluster">
-          Cluster
-      </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-light" href="{{ route('login') }}">
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>   
-
-<section class="hero is-fullheight video">
-    <div class="hero-video">
-        <video poster="{{ url('assets/cluster/details/siteplan.png') }}" playsinline="" autoplay="" muted="" loop="">
-            <source src="{{ url('assets/video/new_gardenville.MP4') }}" type="video/webm">
-        </video>
-    </div>
-    <div class="hero-body">
-        <div class="container">
-            
-        </div>
-    </div>
-    <div class="hero-foot">
-        <div class="has-text-centered">
-            
-        </div>
-    </div>
-</section>
+   <nav>
+        <ul>
+            <li><a href="https://tamankopoindah.co.id" class="button is-dark"><i class="fa-solid fa-angle-left"></i></a></li>
+        </ul>
+    </nav>
 <section class="section" id="cluster">
   <div class="container">
     <div class="columns is-multiline">

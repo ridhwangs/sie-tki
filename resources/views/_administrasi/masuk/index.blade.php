@@ -11,8 +11,8 @@
         <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
-<div class="row mb-3">
-    <div class="col-md-8">
+<div class="row mb-2">
+    <div class="col-md-4 mb-2">
         <div class="card">
             <div class="card-body">
                 <form method="GET" id="form-filter" class="row">
@@ -29,7 +29,7 @@
                         <select id="coa" class="form-select" name="coa" required>
                             <option value="" selected disabled>Silahkan Pilih...</option>
                             @foreach($coa AS $rows)
-                                <option value="{{ $rows->coa }}">{{ $rows->coa }}</option>
+                                <option value="{{ $rows->coa }}">{{ $rows->coa }} - {{ $rows->keterangan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -40,14 +40,63 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2">
         <div class="card">
-            <div class="card-body">
-                <h1>Kas Masuk : {{ number_format($sum) }}</h1>
+            <div class="card-body" style="height:225px;">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover" style="width: 100%;">
+                        <thead style="display: block;">
+                            <tr>
+                                <th style="width:80px">C.O.A</th>
+                                <th style="width:200px">Keterangan</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody style="display: block;height: 140px;overflow-y: auto;overflow-x: hidden;">
+                            @php
+                                $sum_masuk = 0;
+                            @endphp
+                            @foreach($sum_group AS $key => $rows)
+                                @php
+                                    $sum_masuk += $rows->kas_masuk;
+                                @endphp
+                                <tr>
+                                    <td style="width:80px">{{ $rows->coa }}</td>
+                                    <td style="width:200px">{{ $rows->keterangan }}</td>
+                                    <td align="right">{{ number_format($rows->kas_masuk) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot style="display: block;">
+                            <tr>
+                                <td style="width:280px" align="right" colspan="2"><b>Total</b></td>
+                                <td align="right">{{ number_format($sum_masuk) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-   
+    <div class="col-md-4 mb-2">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Kas Masuk : {{ number_format($sum) }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Kas Keluar : 0</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -64,18 +113,20 @@
                                 <th>Jumlah</th>
                                 <th width="1px">Created By</th>
                                 <th width="1px">Created At</th>
+                                <th width="1px"></th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($administrasi AS $rows)
                             <tr>
-                                <td><a href="{{ route('administrasi.masuk.show', $rows->id) }}">{{ $rows->kd_transaksi }}</a></td>
+                                <td>{{ $rows->kd_transaksi }}</td>
                                 <td>{{ $rows->coa }}</td>
                                 <td>{{ $rows->tanggal }}</td>
                                 <td>{{ $rows->keterangan }}</td>
                                 <td align="right">{{ number_format($rows->kas_masuk) }}</td>
                                 <td>{{ $rows->created_by }}</td>
                                 <td>{{ $rows->created_at }}</td>
+                                <td><a class="btn btn-sm  btn-secondary" href="{{ route('administrasi.masuk.show', $rows->id) }}"><i class="fa-solid fa-pencil "></i></a></td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -50,12 +50,12 @@
 @stop
 @section('content')  
 <main class="form-signin w-100 m-auto text-center">
-  <form action="{{ route('login.session') }}" method="POST">
+  <form action="{{ route('login.session') }}" method="POST" autocomplete="off">
     @csrf
     <img class="mb-4" src="{{ asset('assets/logo.png')}}" alt="" width="292">
 
     <div class="form-floating">
-        <input type="email" class="form-control " name="email" id="email" required  value="{{ old('email') }}" placeholder="name@example.com">
+        <input type="email" class="form-control " name="email" id="email" required  value="{{ old('email') }}" placeholder="name@example.com" autofocus>
         <label for="email">Email address</label>
     </div>
     <div class="form-floating">
@@ -63,7 +63,8 @@
       <label for="floatingPassword">Password</label>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; System Information - Smartcode 2022</p>
+    <p class="mt-5 text-muted">&copy; System Information - Smartcode 2022</p>
+    <p class="mb-3 text-muted"><a href="https://denah.tamankopoindah.com">Siteplan</a> | <a href="https://admin.tamankopoindah.com">Admin Parkir</a> | <a href="https://ipl.tamankopoindah.com">IPL</a></p>
   </form>
 </main>
 @stop

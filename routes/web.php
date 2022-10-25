@@ -47,7 +47,9 @@ Route::post('logged/penghuni/update/card', 'App\Http\Controllers\CardController@
 Route::post('logged/penghuni/card/upload', 'App\Http\Controllers\CardController@upload')->name('card.upload');
 
 Route::get('logged/administrasi/masuk', 'App\Http\Controllers\AdministrasiController@masuk')->name('administrasi.masuk');
-Route::get('logged/administrasi/masuk/show/{id}', 'App\Http\Controllers\AdministrasiController@masuk')->name('administrasi.masuk.show');
+Route::get('logged/administrasi/masuk/{id}/edit', 'App\Http\Controllers\AdministrasiController@edit')->name('administrasi.masuk.show');
+Route::put('logged/administrasi/{id}/update', 'App\Http\Controllers\AdministrasiController@update')->name('administrasi.update');
+Route::get('logged/administrasi/delete/{id}', 'App\Http\Controllers\AdministrasiController@delete')->name('administrasi.delete');
 Route::get('logged/administrasi/create/{jenis}', 'App\Http\Controllers\AdministrasiController@create')->name('administrasi.create');
 Route::post('logged/administrasi/store', 'App\Http\Controllers\AdministrasiController@store')->name('administrasi.store');
 Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
