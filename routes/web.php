@@ -55,3 +55,4 @@ Route::post('logged/administrasi/store', 'App\Http\Controllers\AdministrasiContr
 Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
 
 Route::get('scale/fixing', 'App\Http\Controllers\SiteplanController@scale_fixing');
+Route::get('landing', 'App\Http\Controllers\LoginController@landing');

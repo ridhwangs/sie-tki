@@ -34,4 +34,10 @@ class LoginController extends Controller
         request()->session()->regenerateToken();
         return redirect()->route('login');
     }
+
+    public function landing()
+    {
+        $user = Auth::user();
+        return redirect()->route($user->last_route);
+    }
 }
