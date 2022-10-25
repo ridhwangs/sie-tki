@@ -11,14 +11,21 @@ class AdministrasiController extends Controller
 {
     public function masuk(Request $request)
     {
-        if(!empty($request->tgl_awal)){
+        if(empty($request->tgl_awal)){
+            $tgl_awal = '1994-06-18';
+        }else{
+            $tgl_awal = $request->tgl_awal;
+        }
+        if(!empty($request->tgl_akhir)){
             $where = [
-                'coa' => $request->coa,
                 'jenis' => 'masuk'
             ];
-            $query = Administrasi::where($where)->whereBetween('tanggal', [$request->tgl_awal, $request->tgl_akhir]);
-            $sum_all = Administrasi::where($where)->whereBetween('tanggal', [$request->tgl_awal, $request->tgl_akhir]);
-            $sum_group = Administrasi::select('_administrasi.coa AS coa', '_coa.keterangan AS keterangan')->selectRaw("SUM(_administrasi.kas_masuk) as kas_masuk")->join('_coa', '_coa.coa', '=','_administrasi.coa')->whereBetween('tanggal', [$request->tgl_awal, $request->tgl_akhir])->groupBy('coa');
+            if($request->coa != 'all'){
+                $where['coa'] = $request->coa;
+            }
+            $query = Administrasi::where($where)->whereBetween('tanggal', [$tgl_awal, $request->tgl_akhir]);
+            $sum_all = Administrasi::where($where)->whereBetween('tanggal', [$tgl_awal, $request->tgl_akhir]);
+            $sum_group = Administrasi::select('_administrasi.coa AS coa', '_coa.keterangan AS keterangan')->selectRaw("SUM(_administrasi.kas_masuk) as kas_masuk")->join('_coa', '_coa.coa', '=','_administrasi.coa')->whereBetween('tanggal', [$tgl_awal, $request->tgl_akhir])->groupBy('coa');
         }else{
             $query = Administrasi::where('jenis', 'masuk');
             $sum_all = Administrasi::where('jenis', 'masuk');

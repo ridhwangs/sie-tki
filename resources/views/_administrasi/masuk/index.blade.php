@@ -18,7 +18,7 @@
                 <form method="GET" id="form-filter" class="row">
                     <div class="col-md-6 mb-2">
                         <label for="inputEmail4" class="form-label">Dari Tanggal</label>
-                        <input type="date" class="form-control" name="tgl_awal" id="tgl_awal" required>
+                        <input type="date" class="form-control" name="tgl_awal" id="tgl_awal">
                     </div>
                     <div class="col-md-6 mb-2">
                         <label for="inputPassword4" class="form-label">Hingga Tanggal</label>
@@ -28,6 +28,7 @@
                         <label for="coa" class="form-label">(C.O.A)</label>
                         <select id="coa" class="form-select" name="coa" required>
                             <option value="" selected disabled>Silahkan Pilih...</option>
+                            <option value="all">Tampilkan Semua</option>
                             @foreach($coa AS $rows)
                                 <option value="{{ $rows->coa }}">{{ $rows->coa }} - {{ $rows->keterangan }}</option>
                             @endforeach
@@ -99,6 +100,19 @@
     </div>
 </div>
 <div class="row">
+    @if(!empty(@request()->tgl_akhir))
+    <div class="col-md-12">
+        <p>
+        @if(!empty(@request()->tgl_awal))
+            Menampilkan hasil filter dari tanggal {{ @request()->tgl_awal }} hingga tanggal {{ @request()->tgl_akhir }}
+        @else
+            Menampilkan hasil filter per tanggal {{ @request()->tgl_akhir }}
+        @endif
+             <a href="{{ route('administrasi.masuk') }}" class="btn-close float-end" aria-label="Close"></a>
+        </p>
+       
+    </div>
+    @endif
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
