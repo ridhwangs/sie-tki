@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('', function () {
-    return redirect('/siteplan/bulma');
+    $url = Request::url();
+    if(($url == 'http://sie.tamankopoindah.com') || ($url == 'https://sie.tamankopoindah.com')){
+        echo 'redirected';
+    }else{
+        return redirect('/siteplan/bulma');
+    }
+    
 })->name('landing');
 
 Route::get('siteplan/{themes}', 'App\Http\Controllers\MainController@index')->name('main');
