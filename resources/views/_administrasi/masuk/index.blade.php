@@ -38,6 +38,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" form="form-filter" class="btn btn-sm btn-primary">Filter</button>
+                <a href="{{ route('administrasi.get.parkir') }}">Sinkronisasi Parkir</a>
             </div>
         </div>
     </div>
@@ -49,7 +50,7 @@
                         <thead style="display: block;">
                             <tr>
                                 <th style="width:80px">C.O.A</th>
-                                <th style="width:200px">Keterangan</th>
+                                <th style="width:290px">Keterangan</th>
                                 <th>Summary</th>
                             </tr>
                         </thead>
@@ -63,15 +64,15 @@
                                 @endphp
                                 <tr>
                                     <td style="width:80px">{{ $rows->coa }}</td>
-                                    <td style="width:200px">{{ $rows->keterangan }}</td>
+                                    <td style="width:290px">{{ $rows->keterangan }}</td>
                                     <td align="right">{{ number_format($rows->kas_masuk) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot style="display: block;">
                             <tr>
-                                <td style="width:280px" align="right" colspan="2"><b>Total</b></td>
-                                <td align="right">{{ number_format($sum_masuk) }}</td>
+                                <td style="width:280px" align="right" colspan="2"><a href="{{ route('administrasi.masuk.print') }}?@php echo @$_SERVER['QUERY_STRING']; @endphp&alokasi=gor"><i class="fas fa-print"></i></a> <b>Total</b></td>
+                                <td align="right">{{ number_format($sum_masuk) }} </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -80,23 +81,42 @@
         </div>
     </div>
     <div class="col-md-4 mb-2">
-        <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Kas Masuk : {{ number_format($sum) }}</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Kas Keluar : 0</h4>
-                    </div>
+        <div class="card">
+            <div class="card-body" style="height:225px;">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover" style="width: 100%;">
+                        <thead style="display: block;">
+                            <tr>
+                                <th style="width:80px">C.O.A</th>
+                                <th style="width:290px">Keterangan</th>
+                                <th>Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody style="display: block;height: 140px;overflow-y: auto;overflow-x: hidden;">
+                            @php
+                                $sum_masuk_2 = 0;
+                            @endphp
+                            @foreach($sum_group_2 AS $key => $rows)
+                                @php
+                                    $sum_masuk_2 += $rows->kas_masuk;
+                                @endphp
+                                <tr>
+                                    <td style="width:80px">{{ $rows->coa }}</td>
+                                    <td style="width:290px">{{ $rows->keterangan }}</td>
+                                    <td align="right">{{ number_format($rows->kas_masuk) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot style="display: block;">
+                            <tr>
+                                <td style="width:280px" align="right" colspan="2"><a href="{{ route('administrasi.masuk.print') }}?@php echo @$_SERVER['QUERY_STRING']; @endphp&alokasi=butterfly"><i class="fas fa-print"></i></a><b>Total</b></td>
+                                <td align="right">{{ number_format($sum_masuk_2) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
 <div class="row">
