@@ -179,7 +179,7 @@ class AdministrasiController extends Controller
                 'coa' => '3004',
                 'kd_transaksi' => $kd_transaksi,
                 'tanggal' => date('Y-m-d'),
-                'keterangan' => 'Sinkronisasi Sistem Parkir',
+                'keterangan' => 'Sinkronisasi Sistem Parkir pada '.date('Y-m-d H:i:s'),
                 'created_by' => Auth::user()->email,
                 'created_at' => date('Y-m-d H:i:s'),
             ];
