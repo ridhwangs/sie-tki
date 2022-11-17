@@ -2,7 +2,7 @@
 @section('title', 'Administrasi Kas Masuk')
 @section('content')  
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">@yield('title')  <a href="{{ route('administrasi.create', 'masuk') }}" class="btn btn-sm btn-link">Form Administrasi</a></h1>
+    <h1 class="h2"><i class="fa fa-sign-in" aria-hidden="true"></i> @yield('title')  <a href="{{ route('administrasi.create', 'masuk') }}" class="btn btn-sm btn-link">Form Administrasi</a></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
     </div>
 </div>
@@ -38,10 +38,38 @@
             </div>
             <div class="card-footer">
                 <button type="submit" form="form-filter" class="btn btn-sm btn-primary">Filter</button>
-                <a href="{{ route('administrasi.get.parkir') }}">Sinkronisasi Parkir</a>
+                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalSinkronisasi">Sinkronisasi Parkir</a>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalSinkronisasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Sinkronisasi Per Tanggal</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('administrasi.get.parkir') }}" id="form-sinkronisas" method="POST" autocomplete="off">
+                @csrf
+                    <div class="form-group row mb-2">
+                        <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="tanggal" id="tanggal" class="form-control form-control-sm" value="{{ date('Y-m-d') }}" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="form-sinkronisas" class="btn btn-primary">Sinkronisasi</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-4 mb-2">
         <div class="card">
             <div class="card-body" style="height:225px;">

@@ -32,7 +32,8 @@
             <div class="form-group row mb-2">
                 <label for="coa" class="col-sm-2 col-form-label">C.O.A</label>
                 <div class="col-sm-10">
-                    <select name="coa" id="coa" class="form-control form-control-sm">
+                    <select name="coa" id="coa" class="form-control form-control-sm" required>
+                        <option value="" disabled selected>-- pilih chart of accounts --</option>
                         @foreach($coa AS $rows)
                             <option value="{{ $rows->coa }}">{{ $rows->coa }} - {{ $rows->keterangan }}</option>
                         @endforeach

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>KAS MASUK</title>
+		<title>KAS KELUAR</title>
 		<style>
             /* reset */
 
@@ -120,7 +120,7 @@
 	</head>
 	<body>
 		<header>
-			<h1>KAS MASUK</h1>
+			<h1>KAS KELUAR</h1>
 		</header>
 		<article>
 			<h1>Recipient</h1>

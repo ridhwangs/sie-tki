@@ -55,13 +55,17 @@ Route::post('logged/penghuni/card/upload', 'App\Http\Controllers\CardController@
 Route::get('logged/administrasi/masuk', 'App\Http\Controllers\AdministrasiController@masuk')->name('administrasi.masuk');
 Route::get('logged/administrasi/masuk/print', 'App\Http\Controllers\AdministrasiController@print_masuk')->name('administrasi.masuk.print');
 Route::get('logged/administrasi/masuk/{id}/edit', 'App\Http\Controllers\AdministrasiController@edit')->name('administrasi.masuk.show');
+Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
+Route::get('logged/administrasi/keluar/print', 'App\Http\Controllers\AdministrasiController@print_keluar')->name('administrasi.keluar.print');
+Route::get('logged/administrasi/keluar/{id}/edit', 'App\Http\Controllers\AdministrasiController@edit')->name('administrasi.keluar.show');
+
 Route::put('logged/administrasi/{id}/update', 'App\Http\Controllers\AdministrasiController@update')->name('administrasi.update');
 Route::get('logged/administrasi/delete/{id}', 'App\Http\Controllers\AdministrasiController@delete')->name('administrasi.delete');
 Route::get('logged/administrasi/create/{jenis}', 'App\Http\Controllers\AdministrasiController@create')->name('administrasi.create');
 Route::post('logged/administrasi/store', 'App\Http\Controllers\AdministrasiController@store')->name('administrasi.store');
-Route::get('logged/administrasi/keluar', 'App\Http\Controllers\AdministrasiController@keluar')->name('administrasi.keluar');
 
-Route::get('logged/administrasi/get/parkir', 'App\Http\Controllers\AdministrasiController@getParkir')->name('administrasi.get.parkir');
+Route::post('logged/administrasi/get/parkir', 'App\Http\Controllers\AdministrasiController@getParkir')->name('administrasi.get.parkir');
+Route::resource('logged/administrasi/coa', 'App\Http\Controllers\CoaController');
 
 Route::get('scale/fixing', 'App\Http\Controllers\SiteplanController@scale_fixing');
 Route::get('landing', 'App\Http\Controllers\LoginController@landing');
